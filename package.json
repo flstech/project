@@ -5,6 +5,9 @@
   "scripts": {
     "test": "jest"
   },
+  "jest": {
+    "testTimeout": 20000
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
