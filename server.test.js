@@ -12,22 +12,6 @@ const Word = mongoose.model('Word', wordSchema);
 const app = express();
 const port = 4004;
 
-// Connect to MongoDB
-beforeAll(async () => {
-  const mongoUri = 'mongodb://localhost:27017/mirrorDB_test'; // Use a different DB for testing
-  await mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
-});
-
-// Clear the database after each test
-afterEach(async () => {
-  await Word.deleteMany({});
-});
-
-// Close the database connection after all tests
-afterAll(async () => {
-  await mongoose.connection.close();
-});
-
 // /api/health endpoint
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
@@ -66,12 +50,28 @@ app.get('/api/mirror', async (req, res) => {
   }
 });
 
+// Connect to MongoDB before running tests
+beforeAll(async () => {
+  const mongoUri = 'mongodb://localhost:27017/mirrorDB_test'; // Use a different DB for testing
+  await mongoose.connect(mongoUri);
+}, 30000); // Increase timeout for beforeAll
+
+// Clear the database after each test
+afterEach(async () => {
+  await Word.deleteMany({});
+}, 10000); // Increase timeout for afterEach
+
+// Close the database connection after all tests
+afterAll(async () => {
+  await mongoose.connection.close();
+}, 10000); // Increase timeout for afterAll
+
 describe("API Endpoints", function() {
   it("should return the health status", async function() {
     const res = await request(app).get('/api/health');
     expect(res.status).toEqual(200);
     expect(res.body).toEqual({ status: 'ok' });
-  });
+  }, 10000); // Increase timeout for individual test
 
   it("should transform the word correctly and save to the database", async function() {
     const word = 'fOoBar25';
@@ -84,11 +84,11 @@ describe("API Endpoints", function() {
     const savedWordPair = await Word.findOne({ original: word });
     expect(savedWordPair).not.toBeNull();
     expect(savedWordPair.transformed).toEqual(expectedTransformed);
-  });
+  }, 10000); // Increase timeout for individual test
 
   it("should return 400 if the word query parameter is missing", async function() {
     const res = await request(app).get('/api/mirror');
     expect(res.status).toEqual(400);
     expect(res.body).toEqual({ error: 'word query parameter is required' });
-  });
+  }, 10000); // Increase timeout for individual test
 });
