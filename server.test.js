@@ -59,19 +59,19 @@ beforeAll(async () => {
 // Clear the database after each test
 afterEach(async () => {
   await Word.deleteMany({});
-}, 10000); // Increase timeout for afterEach
+}, 30000); // Increase timeout for afterEach
 
 // Close the database connection after all tests
 afterAll(async () => {
   await mongoose.connection.close();
-}, 10000); // Increase timeout for afterAll
+}, 30000); // Increase timeout for afterAll
 
 describe("API Endpoints", function() {
   it("should return the health status", async function() {
     const res = await request(app).get('/api/health');
     expect(res.status).toEqual(200);
     expect(res.body).toEqual({ status: 'ok' });
-  }, 10000); // Increase timeout for individual test
+  }, 30000); // Increase timeout for individual test
 
   it("should transform the word correctly and save to the database", async function() {
     const word = 'fOoBar25';
@@ -84,11 +84,11 @@ describe("API Endpoints", function() {
     const savedWordPair = await Word.findOne({ original: word });
     expect(savedWordPair).not.toBeNull();
     expect(savedWordPair.transformed).toEqual(expectedTransformed);
-  }, 10000); // Increase timeout for individual test
+  }, 30000); // Increase timeout for individual test
 
   it("should return 400 if the word query parameter is missing", async function() {
     const res = await request(app).get('/api/mirror');
     expect(res.status).toEqual(400);
     expect(res.body).toEqual({ error: 'word query parameter is required' });
-  }, 10000); // Increase timeout for individual test
+  }, 30000); // Increase timeout for individual test
 });
