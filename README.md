@@ -1,4 +1,5 @@
-Overview
+**Overview**
+
 Welcome to our Node.js application project! 
 
 This project features a simple Express server with two main endpoints:
@@ -8,22 +9,23 @@ This project features a simple Express server with two main endpoints:
 
 I've also set up a CI/CD pipeline using GitHub Actions to automate testing, building, and deploying a Docker image.
 
-Project Structure
+**Project Structure**
 server.js: Main server file where the Express application is set up.
 server-test.js: Test file for testing the API endpoints using Supertest.
 package.json: Project configuration file containing dependencies and scripts.
 cicd.yml: GitHub Actions workflow file for our CI/CD pipeline.
-=============
 
-Prerequisites
+
+**Prerequisites**
 Before you get started, make sure you have the following installed:
 
 Node.js (version 16)
 MongoDB
 Docker
-============
 
-Getting Started
+
+**Getting Started**
+
 Clone the repository
 First, clone the repository to your local machine and navigate to the project directory:
 git clone <repository-url>
@@ -32,17 +34,16 @@ cd <repository-directory>
 Install dependencies
 Next, install the project dependencies:
 npm install
-===========
+
 Run the server
 Start the server with:
 node server.js
-===========
 
 The server will be up and running on http://localhost:4004.
 
-===========
 API Endpoints
-Health Check
+
+**Health Check**
 
 - URL: /api/health
 - Method: GET
@@ -50,7 +51,8 @@ Health Check
     Status: 200
     Body: { "status": "ok" }
 
-Mirror Word
+**Mirror Word**
+
 - URL: /api/mirror
 - Method: GET
 - Query Parameters:
@@ -62,13 +64,12 @@ Mirror Word
 - Error Response:
     Status: 400
     Body: { "error": "word query parameter is required" }
-============    
-Running Tests
+
+**Running Tests**
 To run the tests we have set up in server-test.js, simply use:
 npm test
 
-============
-CI/CD Pipeline
+**CI/CD Pipeline**
 Our CI/CD pipeline is managed using GitHub Actions and is defined in the cicd.yml file. Here’s what it does:
 
 Check out the repository code:
