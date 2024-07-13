@@ -1,9 +1,12 @@
 Overview
-Welcome to our Node.js application project! This project features a simple Express server with two main endpoints:
+Welcome to our Node.js application project! 
+
+This project features a simple Express server with two main endpoints:
 
 /api/health: Checks if the server is running properly.
 /api/mirror: Transforms a word by reversing it and swapping the case of each character, then saves the original and transformed words in a MongoDB database.
-We've also set up a CI/CD pipeline using GitHub Actions to automate testing, building, and deploying a Docker image.
+
+I've also set up a CI/CD pipeline using GitHub Actions to automate testing, building, and deploying a Docker image.
 
 Project Structure
 server.js: Main server file where the Express application is set up.
@@ -94,8 +97,7 @@ Build and pu Docker image:
     password: ${{ secrets.DOCKER_PASSWORD }}
     dockerfile: Dockerfile
 
-When does the workflow run?
-The workflow runs automatically:
+When does the workflow run? The workflow runs automatically:
 
 When there is a push to the main branch.
 When a pull request is made to the main branch.
